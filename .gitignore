@@ -25,3 +25,7 @@ replay_pid*
 
 # Environment variables file
 .env
+
+# Application properties
+backend/**/application.properties
+backend/**/application-test.properties

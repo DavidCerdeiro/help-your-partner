@@ -6,30 +6,34 @@ pipeline{
     stages{
         stage("build"){
             steps{
-                def route = findFiles(glob: 'backend/*/pom.xml')
-                def parallelSteps = [:]
-                route.each {
-                    parallelSteps["build-${it.path}"] = {
-                        dir(it.parent) {
-                            sh "mvn clean install -DskipTests"
+                script{
+                    def route = findFiles(glob: 'backend/*/pom.xml')
+                    def parallelSteps = [:]
+                    route.each {
+                        parallelSteps["build-${it.path}"] = {
+                            dir(it.parent) {
+                                sh "mvn clean install -DskipTests"
+                            }
                         }
                     }
+                    parallel parallelSteps
                 }
-                parallel parallelSteps
             }
         }
         stage("test"){
             steps{
-                def route = findFiles(glob: 'backend/*/pom.xml')
-                def parallelSteps = [:]
-                route.each {
-                    parallelSteps["test-${it.path}"] = {
-                        dir(it.parent) {
-                            sh "mvn test"
+                script{
+                    def route = findFiles(glob: 'backend/*/pom.xml')
+                    def parallelSteps = [:]
+                    route.each {
+                        parallelSteps["test-${it.path}"] = {
+                            dir(it.parent) {
+                                sh "mvn test"
+                            }
                         }
                     }
+                    parallel parallelSteps
                 }
-                parallel parallelSteps
             }
         }
     }

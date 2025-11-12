@@ -11,7 +11,7 @@ pipeline{
                     def parallelSteps = [:]
                     route.each {
                         parallelSteps["build-${it.path}"] = {
-                            dir(it.parent) {
+                            dir(new File(it.path).parent) {
                                 sh "mvn clean install -DskipTests"
                             }
                         }
@@ -27,7 +27,8 @@ pipeline{
                     def parallelSteps = [:]
                     route.each {
                         parallelSteps["test-${it.path}"] = {
-                            dir(it.parent) {
+                            // SOLUCIÓN: Aplicar también aquí
+                            dir(new File(it.path).parent) {
                                 sh "mvn test"
                             }
                         }

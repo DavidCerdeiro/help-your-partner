@@ -28,4 +28,3 @@ replay_pid*
 
 # Application properties
 backend/**/application.properties
-backend/**/application-test.properties

@@ -36,11 +36,17 @@ public class Task {
     public String getClaimantId() {
         return claimantId;
     }
+    public void setClaimantId(String claimantId) {
+        this.claimantId = claimantId;
+    }
 
     public String getCommunityId() {
         return communityId;
     }
     public TaskStatus getStatus() {
         return status;
+    }
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 }

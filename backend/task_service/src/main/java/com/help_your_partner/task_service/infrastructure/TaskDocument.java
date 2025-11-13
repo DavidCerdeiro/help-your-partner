@@ -19,6 +19,16 @@ public class TaskDocument {
     public TaskDocument() {
     }
 
+    public TaskDocument(String id, String title, String description, String creatorId, String claimantId, String communityId, TaskStatus status) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creatorId = creatorId;
+        this.claimantId = claimantId;
+        this.communityId = communityId;
+        this.status = status;
+    }
+    
     public String getId() {
         return id;
     }

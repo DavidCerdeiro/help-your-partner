@@ -28,7 +28,7 @@ pipeline{
                     route.each {
                         parallelSteps["test-${it.path}"] = {
                             dir(it.path.substring(0, it.path.lastIndexOf('/'))){
-                                sh "mvn test"
+                                sh "mvn test failsafe:integration-test"
                             }
                         }
                     }

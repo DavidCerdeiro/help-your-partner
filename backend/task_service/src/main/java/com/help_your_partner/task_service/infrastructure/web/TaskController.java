@@ -54,10 +54,7 @@ public class TaskController {
     }
     
     @PostMapping("/{taskId}/claim")
-    public ResponseEntity<String> claimTask(
-            @PathVariable String taskId,
-            Authentication authentication
-    ) {
+    public ResponseEntity<String> claimTask(@PathVariable String taskId, Authentication authentication) {
         String userId = authentication.getPrincipal().toString();
         
         boolean claimed = claimTaskUseCase.claimTask(new ClaimTaskCommand(taskId, userId));

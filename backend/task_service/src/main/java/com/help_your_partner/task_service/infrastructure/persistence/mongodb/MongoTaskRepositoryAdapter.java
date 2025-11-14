@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.help_your_partner.task_service.domain.model.Task;
 import com.help_your_partner.task_service.domain.port.out.TaskRepository;
 import com.help_your_partner.task_service.infrastructure.TaskDocument;
 import com.help_your_partner.task_service.infrastructure.persistence.mongodb.repository.SpringDataMongoTaskRepository;
 
+@Repository
 public class MongoTaskRepositoryAdapter implements TaskRepository {
 
     @Autowired
@@ -30,7 +32,17 @@ public class MongoTaskRepositoryAdapter implements TaskRepository {
         if(savedDocument == null) {
             return Optional.empty();
         }
-        return Optional.of(task);
+        Task savedTask = new Task(
+            savedDocument.getId(),
+            savedDocument.getTitle(),
+            savedDocument.getDescription(),
+            savedDocument.getCreatorId(),
+            savedDocument.getClaimantId(),
+            savedDocument.getCommunityId(),
+            savedDocument.getStatus()
+        );
+
+        return Optional.of(savedTask);
     }
 
     @Override
@@ -51,8 +63,8 @@ public class MongoTaskRepositoryAdapter implements TaskRepository {
     }
 
     @Override
-    public List<Task> findByUserId(String userId) {
-        return springDataMongoTaskRepository.findByCommunityId(userId).stream()
+    public List<Task> findByCreatorId(String creatorId) {
+        return springDataMongoTaskRepository.findByCreatorId(creatorId).stream()
             .map(doc -> new Task(
                 doc.getId(),
                 doc.getTitle(),
@@ -66,7 +78,7 @@ public class MongoTaskRepositoryAdapter implements TaskRepository {
     }
 
     @Override
-    public List<Task> findByCommunity(String communityId) {
+    public List<Task> findByCommunityId(String communityId) {
         return springDataMongoTaskRepository.findByCommunityId(communityId).stream()
             .map(doc -> new Task(
                 doc.getId(),

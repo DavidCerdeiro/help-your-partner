@@ -12,4 +12,5 @@ import com.help_your_partner.task_service.infrastructure.TaskDocument;
 public interface SpringDataMongoTaskRepository extends MongoRepository<TaskDocument, String> {
     Optional<TaskDocument> findById(String id);
     List<TaskDocument> findByCommunityId(String communityId);
+    List<TaskDocument> findByCreatorId(String userId);
 } 

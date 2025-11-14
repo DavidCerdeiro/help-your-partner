@@ -10,6 +10,19 @@ public class Task {
     private String communityId;
     private TaskStatus status;
 
+    public Task() {
+    }
+    
+    public Task(String id, String title, String description, String creatorId, String claimantId, String communityId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creatorId = creatorId;
+        this.claimantId = claimantId;
+        this.communityId = communityId;
+        this.status = TaskStatus.OPEN;
+    }
+
     public Task(String id, String title, String description, String creatorId, String claimantId, String communityId, TaskStatus status) {
         this.id = id;
         this.title = title;
@@ -17,10 +30,13 @@ public class Task {
         this.creatorId = creatorId;
         this.claimantId = claimantId;
         this.communityId = communityId;
+        this.status = status;
     }
-
     public String getId() {
         return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
     public String getTitle() {
         return title;
